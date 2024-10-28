@@ -27,6 +27,8 @@ Follow these steps to set up and run Mojo:
 
 1. Clone the Repository
    ```bash
+   git clone https://github.com/yourusername/mojo.git
+
    
 2. Install Dependencies
    - Mojo requires Streamlit, PyMuPDF, docx, FAISS, and Cohere SDK.

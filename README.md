@@ -27,7 +27,7 @@ Follow these steps to set up and run Mojo:
 
 1. Clone the Repository
    ```bash
-   git clone https://github.com/yourusername/mojo.git
+   git clone https://github.com/shubhamyadav1107/mojo.git
 
    
 2. Install Dependencies

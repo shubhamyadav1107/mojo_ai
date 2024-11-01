@@ -1,17 +1,12 @@
-# app.py
-
 import streamlit as st
 import docx
 import fitz  # PyMuPDF
 import cohere
 import time
 import re
-import numpy as np
-import faiss
 
 # Initialize Cohere client
-COHERE_API_KEY = "DQMTog62FGREW26IWWcFe4MDJrRCao6HVEn1ujHM"  # Replace with your actual API key
-cohere_client = cohere.Client(COHERE_API_KEY)
+cohere_client = cohere.Client("DQMTog62FGREW26IWWcFe4MDJrRCao6HVEn1ujHM")
 
 # Function to extract text from documents
 def extract_text(file):
@@ -43,9 +38,9 @@ def get_embeddings(text_chunks, batch_size=10, delay=1):
             response = cohere_client.embed(texts=batch)
             embeddings.extend(response.embeddings)
             time.sleep(delay)
-        except cohere.error.TooManyRequestsError:
-            print("Rate limit exceeded, retrying after a short pause...")
-            time.sleep(5)
+        except cohere.errors.CohereError:  # Corrected error handling
+            st.warning("Rate limit exceeded, retrying after a short pause...")
+            time.sleep(5)  # Wait and try again to avoid exceeding rate limit
     return embeddings
 
 # Function to generate answer using Cohere API
@@ -59,7 +54,7 @@ def generate_answer(question, context):
     return response.generations[0].text.strip()
 
 # Streamlit app setup
-st.title("👽 Hey! I'm Mojo by Shubham, just ask me 🦸🏻‍♂️")
+st.title("👽Hey! I'm Mojo by Shubham, just ask me🦸🏻‍♂️")
 
 uploaded_file = st.file_uploader("Upload a Document", type=["pdf", "docx"])
 
